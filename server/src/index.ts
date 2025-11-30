@@ -1,7 +1,8 @@
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import promisePool, { testConnection } from './config/db.js';
+import { testConnection } from './config/db.js';
+import genreRoutes from './routes/genre.routes.js';
 
 // Initialize configuration
 dotenv.config();
@@ -10,31 +11,22 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors()); // Allow requests from client
-app.use(express.json()); // Parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
-// 1. Health Check
-app.get('/', (req: Request, res: Response) => {
+// --- ROUTES ---
+// Mount the genre routes at /api/genres
+app.use('/api/genres', genreRoutes);
+
+// Health Check
+app.get('/health', (req: Request, res: Response) => {
     res.json({ status: 'active', system: 'Nexus Audio Platform API' });
 });
 
-// 2. GET All Genres (Departments) - The first Real Data Route
-app.get('/api/genres', async (req: Request, res: Response) => {
-    try {
-        // Query the database
-        const [rows] = await promisePool.query('SELECT * FROM genres');
-        // Send data back to frontend
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Database error fetching genres' });
-    }
-});
-
 // Start Server & Connect DB
-app.listen(PORT, async () => { // <--- ASYNC HERE
+app.listen(PORT, async () => {
     console.log(`[server]: Nexus Audio API running at http://localhost:${PORT}`);
 
-    // Test the connection immediately
-    await testConnection(); // <--- ACTIVATE CONNECTION
+    // Test database connection
+    await testConnection();
 });
