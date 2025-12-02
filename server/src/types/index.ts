@@ -18,12 +18,22 @@ export interface Track extends RowDataPacket {
     price_basic: number;
     price_pro: number;
     price_stems?: number;
-    cover_image_url?: string;
     sub_genre_id: number;
     bpm?: number;
     duration_sec?: number;
-    demo_url?: string;
     created_at?: Date;
+
+    // iTunes API Integration
+    itunes_track_id?: number;
+    preview_url?: string; // 30-second preview from iTunes CDN
+    artwork_url_small?: string; // 100x100 artwork
+    artwork_url_large?: string; // 600x600 artwork
+    collection_name?: string; // Album/collection name
+    release_date?: Date;
+
+    // Fallback/Local files (if iTunes data not available)
+    demo_url?: string;
+    cover_image_url?: string;
 }
 
 // Sub-genre Types

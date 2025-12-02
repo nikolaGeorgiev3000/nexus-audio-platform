@@ -24,12 +24,14 @@ npm run install:all
 ### Step 2: Configure Environment
 
 **Create `/server/.env`:**
+
 ```bash
 cd server
 cp .env.example .env
 ```
 
 Edit `/server/.env`:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -44,12 +46,14 @@ CLIENT_URL=http://localhost:5173
 ```
 
 **Create `/client/.env`:**
+
 ```bash
 cd ../client
 cp .env.example .env
 ```
 
 Edit `/client/.env`:
+
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```
@@ -57,6 +61,7 @@ VITE_API_URL=http://localhost:3000/api
 ### Step 3: Setup Database
 
 **Option A: Using npm scripts (requires mysql CLI)**
+
 ```bash
 cd ..  # Back to root
 npm run db:setup
@@ -67,6 +72,7 @@ npm run db:seed
 ```
 
 **Option B: Manual setup**
+
 ```bash
 # Login to MySQL
 mysql -u root -p
@@ -91,6 +97,7 @@ npm run dev
 ```
 
 This will start:
+
 - 🟦 **Server** at http://localhost:3000
 - 🟪 **Client** at http://localhost:5173
 
@@ -101,18 +108,20 @@ This will start:
 Open http://localhost:3000/health
 
 You should see:
+
 ```json
 {
-  "success": true,
-  "status": "active",
-  "system": "Nexus Audio Platform API",
-  "timestamp": "2024-..."
+	"success": true,
+	"status": "active",
+	"system": "Nexus Audio Platform API",
+	"timestamp": "2024-..."
 }
 ```
 
 ### Test Database Connection
 
 Check server terminal output for:
+
 ```
 ✅ Database connected successfully!
 ```
@@ -122,6 +131,7 @@ Check server terminal output for:
 Open http://localhost:3000/api/genres
 
 You should see an array of genres:
+
 ```json
 [
   {
@@ -139,6 +149,7 @@ You should see an array of genres:
 Open http://localhost:5173
 
 You should see:
+
 - ✅ Navbar with logo
 - ✅ Hero section
 - ✅ Departments section with genre cards
@@ -150,7 +161,9 @@ You should see:
 **Error:** `❌ Database connection failed`
 
 **Solutions:**
+
 1. Check MySQL is running:
+
    ```bash
    # macOS
    mysql.server status
@@ -165,6 +178,7 @@ You should see:
 2. Verify credentials in `/server/.env`
 
 3. Test MySQL login:
+
    ```bash
    mysql -u root -p
    ```
@@ -179,17 +193,21 @@ You should see:
 **Error:** `Port 3000 is already in use`
 
 **Solutions:**
+
 1. Change port in `/server/.env`:
+
    ```env
    PORT=3001
    ```
 
 2. Update client API URL in `/client/.env`:
+
    ```env
    VITE_API_URL=http://localhost:3001/api
    ```
 
 3. Or kill the process using the port:
+
    ```bash
    # macOS/Linux
    lsof -ti:3000 | xargs kill
@@ -205,6 +223,7 @@ You should see:
 
 **Solution:**
 Ensure `CLIENT_URL` in `/server/.env` matches your client URL:
+
 ```env
 CLIENT_URL=http://localhost:5173
 ```
@@ -212,11 +231,13 @@ CLIENT_URL=http://localhost:5173
 ### Client Shows "Unable to load catalog data"
 
 **Causes:**
+
 1. Server not running
 2. Wrong API URL
 3. Database empty
 
 **Solutions:**
+
 1. Check server is running at http://localhost:3000/health
 2. Verify `/client/.env` has correct `VITE_API_URL`
 3. Check browser Network tab for API errors
@@ -228,18 +249,20 @@ CLIENT_URL=http://localhost:5173
 
 **Solution:**
 Ensure path aliases are configured in `client/tsconfig.app.json`:
+
 ```json
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
 }
 ```
 
 And in `client/vite.config.ts`:
+
 ```typescript
 resolve: {
   alias: {
@@ -254,12 +277,13 @@ resolve: {
 
 **Solution:**
 Server uses ES modules. All imports must use `.js` extensions:
+
 ```typescript
 // ✅ Correct
-import { getAllGenres } from '../services/genre.service.js';
+import { getAllGenres } from "../services/genre.service.js";
 
 // ❌ Wrong
-import { getAllGenres } from '../services/genre.service';
+import { getAllGenres } from "../services/genre.service";
 ```
 
 ## 🔄 Restart Everything
@@ -302,6 +326,7 @@ Run this checklist:
 If all checks pass, you're ready to develop!
 
 Next steps:
+
 - Explore the codebase structure
 - Read `/client/src/README.md` for client architecture
 - Read `/README.md` for project overview
@@ -320,6 +345,7 @@ Next steps:
 ## 📞 Getting Help
 
 If you're stuck:
+
 1. Check this guide's troubleshooting section
 2. Check server/client terminal output for errors
 3. Check browser console for errors

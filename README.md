@@ -15,6 +15,7 @@ nexus-audio-platform/
 ### Technology Stack
 
 **Frontend (Client)**
+
 - React 19 with TypeScript
 - Vite for fast development
 - TailwindCSS for styling
@@ -22,12 +23,14 @@ nexus-audio-platform/
 - Lucide React for icons
 
 **Backend (Server)**
+
 - Node.js + Express
 - TypeScript
 - MySQL2 for database
 - CORS enabled
 
 **Database**
+
 - MySQL 8.x
 - Structured schema with foreign keys
 - Stored procedures for complex queries
@@ -43,12 +46,14 @@ nexus-audio-platform/
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone <repository-url>
 cd nexus-audio-platform
 ```
 
 2. **Install all dependencies**
+
 ```bash
 npm run install:all
 ```
@@ -58,6 +63,7 @@ This will install dependencies for the root, server, and client.
 3. **Setup environment variables**
 
 **Server** (`/server/.env`):
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -72,6 +78,7 @@ CLIENT_URL=http://localhost:5173
 ```
 
 **Client** (`/client/.env`):
+
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```
@@ -87,6 +94,7 @@ npm run db:seed
 ```
 
 Or manually:
+
 ```bash
 mysql -u root -p < database/schema.sql
 mysql -u root -p nexus_audio_db < database/seeds.sql
@@ -95,6 +103,7 @@ mysql -u root -p nexus_audio_db < database/seeds.sql
 ### Running the Application
 
 **Development mode (recommended):**
+
 ```bash
 npm run dev
 ```
@@ -102,6 +111,7 @@ npm run dev
 This starts both server (port 3000) and client (port 5173) concurrently.
 
 **Or run separately:**
+
 ```bash
 # Terminal 1 - Server
 cd server
@@ -222,11 +232,11 @@ The project uses `@/` for cleaner imports:
 
 ```typescript
 // Client
-import { useGenres } from '@/lib/hooks';
-import { Hero } from '@/components/shared';
+import { useGenres } from "@/lib/hooks";
+import { Hero } from "@/components/shared";
 
 // Server uses relative paths with .js extensions (ES modules)
-import { getAllGenres } from '../services/genre.service.js';
+import { getAllGenres } from "../services/genre.service.js";
 ```
 
 ### Code Style
@@ -262,6 +272,7 @@ npm run install:all      # Install all dependencies
 ### Database Connection Issues
 
 1. Check MySQL is running:
+
 ```bash
 mysql -u root -p
 ```
@@ -269,6 +280,7 @@ mysql -u root -p
 2. Verify credentials in `/server/.env`
 
 3. Check database exists:
+
 ```sql
 SHOW DATABASES;
 USE nexus_audio_db;

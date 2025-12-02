@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 export default function MainLayout() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-blue-500 selection:text-white">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-blue-500 selection:text-white transition-colors">
             <Navbar />
             <main>
                 <Outlet />

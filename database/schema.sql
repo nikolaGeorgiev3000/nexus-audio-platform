@@ -45,16 +45,24 @@ CREATE TABLE IF NOT EXISTS tracks (
     artist VARCHAR(100) NOT NULL,
     bpm INT, -- Beats per minute
     duration_sec INT,
-    
+
     -- Pricing Tier System (Innovation aspect)
     price_basic DECIMAL(10, 2) DEFAULT 0.99, -- MP3 License
     price_pro DECIMAL(10, 2) DEFAULT 2.49,   -- WAV License
     price_stems DECIMAL(10, 2) DEFAULT 19.99,-- Commercial/Stems License
-    
-    -- File Paths & Metadata
-    demo_url VARCHAR(255), -- 30 sec preview path
-    cover_image_url VARCHAR(255),
-    
+
+    -- iTunes API Integration (External System Integration)
+    itunes_track_id BIGINT, -- iTunes track ID for API lookups
+    preview_url VARCHAR(512), -- Real 30-sec preview from iTunes
+    artwork_url_small VARCHAR(512), -- 100x100 artwork
+    artwork_url_large VARCHAR(512), -- 600x600 artwork
+    collection_name VARCHAR(200), -- Album/Collection name
+    release_date DATE, -- Track release date
+
+    -- File Paths & Metadata (Fallback/Local)
+    demo_url VARCHAR(255), -- 30 sec preview path (fallback)
+    cover_image_url VARCHAR(255), -- Local cover (fallback)
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sub_genre_id) REFERENCES sub_genres(id) ON DELETE CASCADE
 );

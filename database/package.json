@@ -1,0 +1,13 @@
+{
+  "name": "nexus-audio-database-tools",
+  "version": "1.0.0",
+  "description": "Database seeding tools for Nexus Audio Platform",
+  "type": "module",
+  "scripts": {
+    "seed:itunes": "node itunes-seeder.js > seeds_itunes.sql",
+    "load:itunes": "mysql -u root nexus_audio_db < seeds_itunes.sql"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
